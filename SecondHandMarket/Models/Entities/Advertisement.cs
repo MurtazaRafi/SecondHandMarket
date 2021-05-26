@@ -8,6 +8,10 @@ namespace SecondHandMarket.Models
 {
     public class Advertisement
     {
+        public Advertisement()
+        {
+            Pictures = new HashSet<Picture>();
+        }
         public int Id { get; set; }
         public string Title { get; set; }
 
@@ -17,7 +21,7 @@ namespace SecondHandMarket.Models
         public DateTime PublishDate { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public ICollection<Picture> Pictures { get; set; }
+        public virtual ICollection<Picture> Pictures { get; set; }
 
         public string ApplicationUserId { get; set; }
 
