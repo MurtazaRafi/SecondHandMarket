@@ -10,7 +10,7 @@ using SecondHandMarket.Data;
 namespace SecondHandMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210524115543_Init")]
+    [Migration("20210529081742_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,21 +229,15 @@ namespace SecondHandMarket.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -279,8 +273,6 @@ namespace SecondHandMarket.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -368,7 +360,7 @@ namespace SecondHandMarket.Migrations
                     b.Property<int>("AdvertisementId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PicPath")
+                    b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -459,15 +451,6 @@ namespace SecondHandMarket.Migrations
                     b.HasOne("SecondHandMarket.Models.Attribut", "Attribute")
                         .WithMany()
                         .HasForeignKey("AttributId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SecondHandMarket.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("SecondHandMarket.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

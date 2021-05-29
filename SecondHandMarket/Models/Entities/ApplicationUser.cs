@@ -8,9 +8,6 @@ namespace SecondHandMarket.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int LocationId { get; set; }
-        public Location Location { get; set; }
+        public string DisplayName { get; set; }
     }
 }

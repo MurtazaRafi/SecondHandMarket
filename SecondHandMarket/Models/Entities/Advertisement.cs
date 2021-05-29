@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SecondHandMarket.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,12 +23,12 @@ namespace SecondHandMarket.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public virtual ICollection<Picture> Pictures { get; set; }
-
-        public string ApplicationUserId { get; set; }
-
-        public ApplicationUser ApplicationUser { get; set; }
+        public ICollection<AdvertisementProperty> AdvertisementProperties  { get; set; }
+        public ICollection<CategoryProperty> CategoryProperties { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
     }
 }

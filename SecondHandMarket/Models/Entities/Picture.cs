@@ -10,7 +10,7 @@ namespace SecondHandMarket.Models
 
         public int Id { get; set; }
 
-        public byte[] PicInByte { get; set; }
+        public string Path { get; set; }
 
         public int AdvertisementId { get; set; }
 
