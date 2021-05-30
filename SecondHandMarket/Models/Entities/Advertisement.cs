@@ -22,7 +22,8 @@ namespace SecondHandMarket.Models
         public DateTime PublishDate { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<Picture> Pictures { get; set; }
+        public virtual ICollection<Picture> Pictures { get; set; } 
+        //TODO ändra till bara en picture från början? 0 eller 1 int? picId eller som nu 0 eller många, Se källan...
         public ICollection<AdvertisementProperty> AdvertisementProperties  { get; set; }
         public ICollection<CategoryProperty> CategoryProperties { get; set; }
         public int LocationId { get; set; }

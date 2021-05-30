@@ -48,19 +48,6 @@ namespace SecondHandMarket.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attributes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attributes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
@@ -84,6 +71,19 @@ namespace SecondHandMarket.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MainCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Properties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Properties", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,8 +223,8 @@ namespace SecondHandMarket.Migrations
                     Price = table.Column<int>(nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    LocationId = table.Column<int>(nullable: false)
+                    LocationId = table.Column<int>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -250,27 +250,60 @@ namespace SecondHandMarket.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdvertisementAttributes",
+                name: "AdvertisementProperties",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdvertisementId = table.Column<int>(nullable: false),
-                    AttributId = table.Column<int>(nullable: false)
+                    PropertyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdvertisementAttributes", x => x.Id);
+                    table.PrimaryKey("PK_AdvertisementProperties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdvertisementAttributes_Advertisements_AdvertisementId",
+                        name: "FK_AdvertisementProperties_Advertisements_AdvertisementId",
                         column: x => x.AdvertisementId,
                         principalTable: "Advertisements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AdvertisementAttributes_Attributes_AttributId",
-                        column: x => x.AttributId,
-                        principalTable: "Attributes",
+                        name: "FK_AdvertisementProperties_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryProperties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryId = table.Column<int>(nullable: false),
+                    PropertyId = table.Column<int>(nullable: false),
+                    AdvertisementId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryProperties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CategoryProperties_Advertisements_AdvertisementId",
+                        column: x => x.AdvertisementId,
+                        principalTable: "Advertisements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CategoryProperties_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryProperties_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -295,15 +328,108 @@ namespace SecondHandMarket.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Locations",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 12, "Stockholm" },
+                    { 19, "Västra Götaland" },
+                    { 18, "Västmanland" },
+                    { 17, "Västernorrland" },
+                    { 16, "Västerbotten" },
+                    { 15, "Värmland" },
+                    { 14, "Uppsala" },
+                    { 13, "Södermanland" },
+                    { 11, "Skåne" },
+                    { 20, "Örebro" },
+                    { 10, "Norrbotten" },
+                    { 8, "Kalmar" },
+                    { 7, "Jönköping" },
+                    { 6, "Jämtland" },
+                    { 5, "Halland" },
+                    { 4, "Gävleborg" },
+                    { 3, "Gotland" },
+                    { 2, "Dalarna" },
+                    { 1, "Blekinge" },
+                    { 9, "Kronoberg" },
+                    { 21, "Östergötland" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MainCategories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 2, "För Hemmet" },
+                    { 3, "Personligt" },
+                    { 5, "Fritid & hobby" },
+                    { 4, "Elektronik" },
+                    { 1, "Fordon" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Properties",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 2, "Miltal" },
+                    { 1, "Modellår" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "MainCategoryId", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "Bilar" },
+                    { 20, 5, "Böcker & studentlitteratur" },
+                    { 19, 5, "Upplevelser & nöje" },
+                    { 18, 4, "Telefoner & tillbehör" },
+                    { 17, 4, "Ljus & bild" },
+                    { 16, 4, "Datorer & TV-spel" },
+                    { 15, 3, "Barnartiklar & leksaker" },
+                    { 14, 3, "Barnkläder & Skor" },
+                    { 13, 3, "Accessoarer & klockor" },
+                    { 12, 3, "Kläder & skor" },
+                    { 11, 2, "Verktyg" },
+                    { 10, 2, "Byggmaterial" },
+                    { 9, 2, "Vitvaror" },
+                    { 8, 2, "Möbler" },
+                    { 7, 1, "Snöskotrar" },
+                    { 6, 1, "Lastbilar" },
+                    { 5, 1, "Cyklar" },
+                    { 4, 1, "Mopeder" },
+                    { 3, 1, "Motorcyklar" },
+                    { 2, 1, "Båtar" },
+                    { 21, 5, "Djur" },
+                    { 22, 5, "Sport" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CategoryProperties",
+                columns: new[] { "Id", "AdvertisementId", "CategoryId", "PropertyId" },
+                values: new object[] { 1, null, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "CategoryProperties",
+                columns: new[] { "Id", "AdvertisementId", "CategoryId", "PropertyId" },
+                values: new object[] { 2, null, 1, 2 });
+
+            migrationBuilder.InsertData(
+                table: "CategoryProperties",
+                columns: new[] { "Id", "AdvertisementId", "CategoryId", "PropertyId" },
+                values: new object[] { 3, null, 2, 1 });
+
             migrationBuilder.CreateIndex(
-                name: "IX_AdvertisementAttributes_AdvertisementId",
-                table: "AdvertisementAttributes",
+                name: "IX_AdvertisementProperties_AdvertisementId",
+                table: "AdvertisementProperties",
                 column: "AdvertisementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AdvertisementAttributes_AttributId",
-                table: "AdvertisementAttributes",
-                column: "AttributId");
+                name: "IX_AdvertisementProperties_PropertyId",
+                table: "AdvertisementProperties",
+                column: "PropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisements_ApplicationUserId",
@@ -365,6 +491,21 @@ namespace SecondHandMarket.Migrations
                 column: "MainCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CategoryProperties_AdvertisementId",
+                table: "CategoryProperties",
+                column: "AdvertisementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryProperties_CategoryId",
+                table: "CategoryProperties",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryProperties_PropertyId",
+                table: "CategoryProperties",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pictures_AdvertisementId",
                 table: "Pictures",
                 column: "AdvertisementId");
@@ -373,7 +514,7 @@ namespace SecondHandMarket.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AdvertisementAttributes");
+                name: "AdvertisementProperties");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -391,13 +532,16 @@ namespace SecondHandMarket.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CategoryProperties");
+
+            migrationBuilder.DropTable(
                 name: "Pictures");
 
             migrationBuilder.DropTable(
-                name: "Attributes");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Properties");
 
             migrationBuilder.DropTable(
                 name: "Advertisements");

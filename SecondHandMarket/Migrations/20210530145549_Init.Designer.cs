@@ -10,7 +10,7 @@ using SecondHandMarket.Data;
 namespace SecondHandMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210529081742_Init")]
+    [Migration("20210530145549_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,28 +195,6 @@ namespace SecondHandMarket.Migrations
                     b.ToTable("Advertisements");
                 });
 
-            modelBuilder.Entity("SecondHandMarket.Models.AdvertisementAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AdvertisementId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AttributId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdvertisementId");
-
-                    b.HasIndex("AttributId");
-
-                    b.ToTable("AdvertisementAttributes");
-                });
-
             modelBuilder.Entity("SecondHandMarket.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -285,21 +263,6 @@ namespace SecondHandMarket.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SecondHandMarket.Models.Attribut", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Attributes");
-                });
-
             modelBuilder.Entity("SecondHandMarket.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -318,6 +281,236 @@ namespace SecondHandMarket.Migrations
                     b.HasIndex("MainCategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MainCategoryId = 1,
+                            Name = "Bilar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MainCategoryId = 1,
+                            Name = "Båtar"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MainCategoryId = 1,
+                            Name = "Motorcyklar"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MainCategoryId = 1,
+                            Name = "Mopeder"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            MainCategoryId = 1,
+                            Name = "Cyklar"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            MainCategoryId = 1,
+                            Name = "Lastbilar"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            MainCategoryId = 1,
+                            Name = "Snöskotrar"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            MainCategoryId = 2,
+                            Name = "Möbler"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            MainCategoryId = 2,
+                            Name = "Vitvaror"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            MainCategoryId = 2,
+                            Name = "Byggmaterial"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            MainCategoryId = 2,
+                            Name = "Verktyg"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            MainCategoryId = 3,
+                            Name = "Kläder & skor"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            MainCategoryId = 3,
+                            Name = "Accessoarer & klockor"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            MainCategoryId = 3,
+                            Name = "Barnkläder & Skor"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            MainCategoryId = 3,
+                            Name = "Barnartiklar & leksaker"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            MainCategoryId = 4,
+                            Name = "Datorer & TV-spel"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            MainCategoryId = 4,
+                            Name = "Ljus & bild"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            MainCategoryId = 4,
+                            Name = "Telefoner & tillbehör"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            MainCategoryId = 5,
+                            Name = "Upplevelser & nöje"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            MainCategoryId = 5,
+                            Name = "Böcker & studentlitteratur"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            MainCategoryId = 5,
+                            Name = "Djur"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            MainCategoryId = 5,
+                            Name = "Sport"
+                        });
+                });
+
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.AdvertisementProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdvertisementId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdvertisementId");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("AdvertisementProperties");
+                });
+
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.CategoryProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AdvertisementId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdvertisementId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("CategoryProperties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            PropertyId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            PropertyId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            PropertyId = 1
+                        });
+                });
+
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.Property", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Properties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Modellår"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Miltal"
+                        });
                 });
 
             modelBuilder.Entity("SecondHandMarket.Models.Location", b =>
@@ -333,6 +526,113 @@ namespace SecondHandMarket.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Blekinge"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Dalarna"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Gotland"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Gävleborg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Halland"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Jämtland"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Jönköping"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Kalmar"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Kronoberg"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Norrbotten"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Skåne"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Stockholm"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Södermanland"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Uppsala"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Värmland"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Västerbotten"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Västernorrland"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Västmanland"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Västra Götaland"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Örebro"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Östergötland"
+                        });
                 });
 
             modelBuilder.Entity("SecondHandMarket.Models.MainCategory", b =>
@@ -348,6 +648,33 @@ namespace SecondHandMarket.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MainCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fordon"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "För Hemmet"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Personligt"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Elektronik"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Fritid & hobby"
+                        });
                 });
 
             modelBuilder.Entity("SecondHandMarket.Models.Picture", b =>
@@ -424,7 +751,7 @@ namespace SecondHandMarket.Migrations
             modelBuilder.Entity("SecondHandMarket.Models.Advertisement", b =>
                 {
                     b.HasOne("SecondHandMarket.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Advertisements")
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("SecondHandMarket.Models.Category", "Category")
@@ -440,26 +767,45 @@ namespace SecondHandMarket.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SecondHandMarket.Models.AdvertisementAttribute", b =>
-                {
-                    b.HasOne("SecondHandMarket.Models.Advertisement", "Advertisement")
-                        .WithMany()
-                        .HasForeignKey("AdvertisementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SecondHandMarket.Models.Attribut", "Attribute")
-                        .WithMany()
-                        .HasForeignKey("AttributId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SecondHandMarket.Models.Category", b =>
                 {
                     b.HasOne("SecondHandMarket.Models.MainCategory", null)
                         .WithMany("Categories")
                         .HasForeignKey("MainCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.AdvertisementProperty", b =>
+                {
+                    b.HasOne("SecondHandMarket.Models.Advertisement", "Advertisement")
+                        .WithMany("AdvertisementProperties")
+                        .HasForeignKey("AdvertisementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecondHandMarket.Models.Entities.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.CategoryProperty", b =>
+                {
+                    b.HasOne("SecondHandMarket.Models.Advertisement", null)
+                        .WithMany("CategoryProperties")
+                        .HasForeignKey("AdvertisementId");
+
+                    b.HasOne("SecondHandMarket.Models.Category", "Category")
+                        .WithMany("CategoryProperties")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecondHandMarket.Models.Entities.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
