@@ -21,8 +21,6 @@ namespace SecondHandMarket.Data
 
                 var fake = new Faker();
 
-                
-
                 var userManger = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManger = services.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -53,9 +51,6 @@ namespace SecondHandMarket.Data
                     var res2 = await userManger.AddToRoleAsync(user, "User");
                 }
 
-                var fName = fake.Name.FirstName();
-                var lName = fake.Name.LastName();
-                var email = fake.Internet.Email($"{fName} {lName}");
                 var admin = new ApplicationUser
                 {
                     DisplayName = "Murtaza",

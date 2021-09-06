@@ -10,8 +10,8 @@ using SecondHandMarket.Data;
 namespace SecondHandMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210530145549_Init")]
-    partial class Init
+    [Migration("20210906092518_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

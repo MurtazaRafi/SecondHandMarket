@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,17 +14,20 @@ namespace SecondHandMarket.Controllers
 {
     public class AdvertisementsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public AdvertisementsController(ApplicationDbContext context)
+        private readonly ApplicationDbContext db;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+        public AdvertisementsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _context = context;
+            db = context;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         // GET: Advertisements
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Advertisements.Include(a => a.ApplicationUser).Include(a => a.Category).Include(a => a.Location);
+            var applicationDbContext = db.Advertisements.Include(a => a.ApplicationUser).Include(a => a.Category).Include(a => a.Location);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,7 +39,7 @@ namespace SecondHandMarket.Controllers
                 return NotFound();
             }
 
-            var advertisement = await _context.Advertisements
+            var advertisement = await db.Advertisements
                 .Include(a => a.ApplicationUser)
                 .Include(a => a.Category)
                 .Include(a => a.Location)
@@ -48,11 +53,11 @@ namespace SecondHandMarket.Controllers
         }
 
         // GET: Advertisements/Create
+        [Authorize]
         public IActionResult Create()
         {
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name");
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
             return View();
         }
 
@@ -61,17 +66,19 @@ namespace SecondHandMarket.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,PublishDate,CategoryId,LocationId,ApplicationUserId")] Advertisement advertisement)
+        [Authorize]
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,PublishDate,CategoryId,LocationId")] Advertisement advertisement)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(advertisement);
-                await _context.SaveChangesAsync();
+                advertisement.ApplicationUserId = userManager.GetUserId(User);
+                db.Add(advertisement);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", advertisement.CategoryId);
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", advertisement.LocationId);
+            ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
+            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name", advertisement.CategoryId);
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name", advertisement.LocationId);
             return View(advertisement);
         }
 
@@ -83,14 +90,14 @@ namespace SecondHandMarket.Controllers
                 return NotFound();
             }
 
-            var advertisement = await _context.Advertisements.FindAsync(id);
+            var advertisement = await db.Advertisements.FindAsync(id);
             if (advertisement == null)
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", advertisement.CategoryId);
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", advertisement.LocationId);
+            ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
+            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Id", advertisement.CategoryId);
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Id", advertisement.LocationId);
             return View(advertisement);
         }
 
@@ -110,8 +117,8 @@ namespace SecondHandMarket.Controllers
             {
                 try
                 {
-                    _context.Update(advertisement);
-                    await _context.SaveChangesAsync();
+                    db.Update(advertisement);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,9 +133,9 @@ namespace SecondHandMarket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", advertisement.CategoryId);
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", advertisement.LocationId);
+            ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
+            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Id", advertisement.CategoryId);
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Id", advertisement.LocationId);
             return View(advertisement);
         }
 
@@ -140,7 +147,7 @@ namespace SecondHandMarket.Controllers
                 return NotFound();
             }
 
-            var advertisement = await _context.Advertisements
+            var advertisement = await db.Advertisements
                 .Include(a => a.ApplicationUser)
                 .Include(a => a.Category)
                 .Include(a => a.Location)
@@ -158,15 +165,15 @@ namespace SecondHandMarket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var advertisement = await _context.Advertisements.FindAsync(id);
-            _context.Advertisements.Remove(advertisement);
-            await _context.SaveChangesAsync();
+            var advertisement = await db.Advertisements.FindAsync(id);
+            db.Advertisements.Remove(advertisement);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AdvertisementExists(int id)
         {
-            return _context.Advertisements.Any(e => e.Id == id);
+            return db.Advertisements.Any(e => e.Id == id);
         }
     }
 }

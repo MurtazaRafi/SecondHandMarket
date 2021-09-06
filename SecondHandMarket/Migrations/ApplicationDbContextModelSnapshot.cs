@@ -791,9 +791,9 @@ namespace SecondHandMarket.Migrations
 
             modelBuilder.Entity("SecondHandMarket.Models.Entities.CategoryProperty", b =>
                 {
-                    //b.HasOne("SecondHandMarket.Models.Advertisement", null)
-                    //    .WithMany("CategoryProperties")
-                    //    .HasForeignKey("AdvertisementId");
+                    b.HasOne("SecondHandMarket.Models.Advertisement", null)
+                        .WithMany("CategoryProperties")
+                        .HasForeignKey("AdvertisementId");
 
                     b.HasOne("SecondHandMarket.Models.Category", "Category")
                         .WithMany("CategoryProperties")
