@@ -14,18 +14,22 @@ namespace SecondHandMarket.Models
             Pictures = new HashSet<Picture>();
         }
         public int Id { get; set; }
+        [DataType(DataType.Text)]
+        [Display(Name ="Rubrik")]
         public string Title { get; set; }
 
         [DataType(DataType.Text)]
+        [Display(Name ="Beskrivning")]
         public string Description { get; set; }
+        [Display(Name = "Pris")]
         public int Price { get; set; }
         public DateTime PublishDate { get; set; }
         [Display(Name = "Kategori")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<Picture> Pictures { get; set; } 
+        public virtual ICollection<Picture> Pictures { get; set; }
         //TODO ändra till bara en picture från början? 0 eller 1 int? picId eller som nu 0 eller många, Se källan...
-        public ICollection<AdvertisementProperty> AdvertisementProperties  { get; set; }
+        public ICollection<AdvertisementProperty> AdvertisementProperties { get; set; }
         public ICollection<CategoryProperty> CategoryProperties { get; set; }
         [Display(Name = "Plats")]
         public int LocationId { get; set; }

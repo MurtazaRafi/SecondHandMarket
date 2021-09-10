@@ -56,7 +56,7 @@ namespace SecondHandMarket.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name");
+            //ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name");
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
             return View();
         }
@@ -67,17 +67,19 @@ namespace SecondHandMarket.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,PublishDate,CategoryId,LocationId")] Advertisement advertisement)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,CategoryId,LocationId")] Advertisement advertisement)
         {
             if (ModelState.IsValid)
             {
                 advertisement.ApplicationUserId = userManager.GetUserId(User);
+                advertisement.PublishDate = DateTime.Now;
                 db.Add(advertisement);
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name", advertisement.CategoryId);
+            
+            //ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name", advertisement.CategoryId);
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name", advertisement.LocationId);
             return View(advertisement);
         }
