@@ -7,13 +7,9 @@ namespace SecondHandMarket.Models
 {
     public class Picture
     {
-
         public int Id { get; set; }
-
         public string Path { get; set; }
-
         public int AdvertisementId { get; set; }
-
         public virtual Advertisement Advertisement { get; set; }
     }
 }
