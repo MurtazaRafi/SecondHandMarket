@@ -67,7 +67,7 @@ namespace SecondHandMarket
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Advertisements}/{action=create}");
                 endpoints.MapRazorPages();
             });
         }

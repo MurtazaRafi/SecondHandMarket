@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,11 +21,16 @@ namespace SecondHandMarket.Controllers
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        public AdvertisementsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly IWebHostEnvironment environment;
+        public AdvertisementsController(ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IWebHostEnvironment environment)
         {
             db = context;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.environment = environment;
         }
 
         // GET: Advertisements
@@ -56,7 +65,9 @@ namespace SecondHandMarket.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            //ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name");
+            //TODO längre fram User har Location som förvald
+            //var userId = userManager.GetUserAsync(User).Result.Id;
+            //var userLocation = db.ApplicationUsers.Where(u=>u.Id==userId).Select(u=>u.Location)
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
             return View();
         }
@@ -67,21 +78,62 @@ namespace SecondHandMarket.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,CategoryId,LocationId")] Advertisement advertisement)
+        public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                advertisement.ApplicationUserId = userManager.GetUserId(User);
-                advertisement.PublishDate = DateTime.Now;
+                Advertisement advertisement = new Advertisement
+                {
+                    ApplicationUserId = userManager.GetUserId(User),
+                    CategoryId = model.Advertisement.CategoryId,
+                    LocationId = model.Advertisement.LocationId,
+                    Title = model.Advertisement.Title,
+                    Description = model.Advertisement.Description,
+                    PublishDate = DateTime.Now,
+                    Price = model.Advertisement.Price
+                };
+             
                 db.Add(advertisement);
+
+                //TODO bryt ut egen metod
+                if (model.File != null)
+                {
+                    //string extension = Path.GetExtension(model.Files.FileName);
+                    //string[] extensions = new string[] { ".jpg", ".jpeg", ".png" };
+                    //if (!extensions.Contains(extension.ToLower()))
+                    //{
+                    //}
+                    string categoryName = db.Categories.First(c => c.Id == advertisement.CategoryId).Name;
+                    string path = Path.Combine(environment.WebRootPath, $"uploads/{categoryName}");
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    string fileName = Convert.ToString(Guid.NewGuid());
+                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        model.File.CopyTo(stream);
+                        stream.Flush();
+                    }
+
+                    Picture picture = new Picture
+                    {
+                        Path = $"/uploads/{categoryName}/{fileName}",
+                        Advertisement = advertisement
+                    };
+
+
+                    db.Add(picture);
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
-            
+
             //ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name", advertisement.CategoryId);
-            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name", advertisement.LocationId);
-            return View(advertisement);
+            //ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name",  model.Advertisement.Location.Name);
+            return View(model);
         }
 
         // GET: Advertisements/Edit/5

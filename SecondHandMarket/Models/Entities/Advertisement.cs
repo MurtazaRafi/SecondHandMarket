@@ -9,10 +9,10 @@ namespace SecondHandMarket.Models
 {
     public class Advertisement
     {
-        public Advertisement()
-        {
-            Pictures = new HashSet<Picture>();
-        }
+        //public Advertisement()
+        //{
+        //    Pictures = new HashSet<Picture>();
+        //}
         public int Id { get; set; }
         [DataType(DataType.Text)]
         [Display(Name ="Rubrik")]
@@ -27,7 +27,7 @@ namespace SecondHandMarket.Models
         [Display(Name = "Kategori")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<Picture> Pictures { get; set; }
+        public  ICollection<Picture> Pictures { get; set; } //virtual
         //TODO ändra till bara en picture från början? 0 eller 1 int? picId eller som nu 0 eller många, Se källan...
         public ICollection<AdvertisementProperty> AdvertisementProperties { get; set; }
         public ICollection<CategoryProperty> CategoryProperties { get; set; }

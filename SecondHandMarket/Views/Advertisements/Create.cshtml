@@ -1,4 +1,4 @@
-﻿@model SecondHandMarket.Models.Advertisement
+﻿@model SecondHandMarket.Models.CreateViewModel
 @inject ICategorySelectService service
 
 @{
@@ -9,33 +9,51 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group col-md-6 start" style="padding-left:0">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="@await service.GetCategoriesAsync()"></select>
+                <label asp-for="@Model.Advertisement.CategoryId" class="control-label"></label>
+                <select asp-for="@Model.Advertisement.CategoryId" class="form-control" asp-items="@await service.GetCategoriesAsync()"></select>
             </div>
             <div class="form-group col-md-6 start" style="padding-left:0">
-                <label asp-for="LocationId" class="control-label"></label>
-                <select asp-for="LocationId" class="form-control" asp-items="ViewBag.LocationId"></select>
+                <label asp-for="@Model.Advertisement.LocationId" class="control-label"></label>
+                <select asp-for="@Model.Advertisement.LocationId" class="form-control" asp-items="ViewBag.LocationId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="@Model.Advertisement.Title" class="control-label"></label>
+                <input asp-for="@Model.Advertisement.Title" class="form-control" />
+                <span asp-validation-for="@Model.Advertisement.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" style="height:150px">Beskriv din annons</textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="@Model.Advertisement.Description" class="control-label"></label>
+                <textarea asp-for="@Model.Advertisement.Description" class="form-control" style="height:150px">Beskriv din annons</textarea>
+                <span asp-validation-for="@Model.Advertisement.Description" class="text-danger"></span>
             </div>
             <div class="form-group col-md-6 start" style="padding-left:0">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="@Model.Advertisement.Price" class="control-label"></label>
+                <input asp-for="@Model.Advertisement.Price" class="form-control" />
+                <span asp-validation-for="@Model.Advertisement.Price" class="text-danger"></span>
             </div>
+            <div class="form-group" style="padding-left:0">
+                <p>Lägg till bild</p>
+                @*multiple*@
+                <input type="file" asp-for="@Model.File" accept="image/*" placeholder="Lägg bild" />
+                @*<input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Lägg bild">*@
+                <!--<!--iv>
+    <label for="files" class="btn">Select Image</label>-->
+                <!--@*<input data-classButton="btn btn-primary" type="file" id="files" style="visibility:hidden;">*@-->
+                <!--</div>-->
+            </div>
+            @*TODO Fixa så att kan lägga till flera bilder i samma form
 
+            <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Upload" />
+            </div>
+        </div>
+            Lägg in bara en bild från början.
+            *@
             <div class="form-group">
                 <input type="submit" value="Lägg in annons" class="btn btn-primary" />
             </div>
