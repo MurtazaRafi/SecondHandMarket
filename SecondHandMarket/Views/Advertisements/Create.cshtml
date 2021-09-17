@@ -11,14 +11,13 @@
     <div class="col-md-6">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
             <div class="form-group col-md-6 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.CategoryId" class="control-label"></label>
-                <select asp-for="@Model.Advertisement.CategoryId" class="form-control" asp-items="@await service.GetCategoriesAsync()"></select>
+                <select asp-for="@Model.Advertisement.CategoryId" class="form-control" id="categories" asp-items="@await service.GetCategoriesAsync()"></select>
             </div>
             <div class="form-group col-md-6 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.LocationId" class="control-label"></label>
-                <select asp-for="@Model.Advertisement.LocationId" class="form-control" asp-items="ViewBag.LocationId"></select>
+                <select asp-for="@Model.Advertisement.LocationId" class="form-control" id="locations" asp-items="ViewBag.LocationId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Advertisement.Title" class="control-label"></label>

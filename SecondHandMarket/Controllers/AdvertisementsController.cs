@@ -68,7 +68,8 @@ namespace SecondHandMarket.Controllers
             //TODO längre fram User har Location som förvald       
             //var userId = userManager.GetUserAsync(User).Result.Id;
             //var userLocation = db.ApplicationUsers.Where(u=>u.Id==userId).Select(u=>u.Location)
-            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
+            var label = new SelectListItem("Välj plats", "0", true, true);
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name").Append(label);
             return View();
         }
 

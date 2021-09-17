@@ -3,6 +3,16 @@
 
 // Write your JavaScript code.
 
+$('select > option:first').hide();
+
+$(document).ready(function () {
+    $("#categories").find("option").first().hide();
+    $("#locations").find("option").last().hide();
+});
+
+$(document).ready(function () {
+});
+
 //$("#files").change(function () {
 //    filename = this.files[0].name
 //    console.log(filename);
@@ -21,4 +31,3 @@
 //if ($.inArray($ext, $allow) == -1) {
 //    alert("Only image files are accepted, please browse a image file");
 //    return;
-//}

@@ -28,7 +28,7 @@ namespace SecondHandMarket.Services
 
             var selectListItems = new List<SelectListItem>();
 
-            selectListItems.Add(new SelectListItem { Text = "Välj kategori", Selected = true, Disabled = true });
+            selectListItems.Add(new SelectListItem { Text = "Välj kategori", Selected = true, Disabled = true , Value = "0" });
 
             foreach (var c in db.Categories)
             {
