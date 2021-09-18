@@ -16,15 +16,19 @@ namespace SecondHandMarket.Models
         public int Id { get; set; }
         [DataType(DataType.Text)]
         [Display(Name ="Rubrik")]
+        [Required(ErrorMessage = "Skriv en rubrik")]
         public string Title { get; set; }
 
         [DataType(DataType.Text)]
         [Display(Name ="Beskrivning")]
+        [Required(ErrorMessage = "Skriv en annonstext")]
         public string Description { get; set; }
         [Display(Name = "Pris")]
+        [Required(ErrorMessage = "Du måste ange ett pris")]
         public int Price { get; set; }
         public DateTime PublishDate { get; set; }
         [Display(Name = "Kategori")]
+        [Required(ErrorMessage = "Välj en kategori")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public  ICollection<Picture> Pictures { get; set; } //virtual
@@ -32,6 +36,7 @@ namespace SecondHandMarket.Models
         public ICollection<AdvertisementProperty> AdvertisementProperties { get; set; }
         public ICollection<CategoryProperty> CategoryProperties { get; set; }
         [Display(Name = "Plats")]
+        [Required(ErrorMessage = "Välj en plats")]
         public int LocationId { get; set; }
         public Location Location { get; set; }
         public string ApplicationUserId { get; set; }

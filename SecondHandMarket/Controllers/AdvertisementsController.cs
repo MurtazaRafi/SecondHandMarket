@@ -93,17 +93,12 @@ namespace SecondHandMarket.Controllers
                     PublishDate = DateTime.Now,
                     Price = model.Advertisement.Price
                 };
-             
+
                 db.Add(advertisement);
 
                 //TODO bryt ut egen metod
                 if (model.File != null)
                 {
-                    //string extension = Path.GetExtension(model.Files.FileName);
-                    //string[] extensions = new string[] { ".jpg", ".jpeg", ".png" };
-                    //if (!extensions.Contains(extension.ToLower()))
-                    //{
-                    //}
                     string categoryName = db.Categories.First(c => c.Id == advertisement.CategoryId).Name;
                     string path = Path.Combine(environment.WebRootPath, $"uploads/{categoryName}");
 
@@ -132,8 +127,8 @@ namespace SecondHandMarket.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            //ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name", advertisement.CategoryId);
-            //ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name",  model.Advertisement.Location.Name);
+            var label = new SelectListItem("Välj plats", "0", true, true);
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name").Append(label);
             return View(model);
         }
 

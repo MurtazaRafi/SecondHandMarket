@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SecondHandMarket.Validations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,8 @@ namespace SecondHandMarket.Models
     public class CreateViewModel
     {
         public Advertisement Advertisement { get; set; }
+
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".gif", "tiff"})]
         public IFormFile File { get; set; }
     }
 }

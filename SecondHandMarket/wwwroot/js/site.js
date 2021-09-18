@@ -3,31 +3,14 @@
 
 // Write your JavaScript code.
 
-$('select > option:first').hide();
+//$('select > option:first').hide();
 
 $(document).ready(function () {
     $("#categories").find("option").first().hide();
-    $("#locations").find("option").last().hide();
 });
 
 $(document).ready(function () {
+    $("#locations").find("option").last().hide();
 });
 
-//$("#files").change(function () {
-//    filename = this.files[0].name
-//    console.log(filename);
-//});
 
-
-//$file = $("#myFile");
-//var $filePath = $.trim($file.val());
-//if ($filePath == "") {
-//    alert("Please browse a file to upload");
-//    return;
-//}
-
-//var $ext = $filePath.split(".").pop().toLowerCase();
-//var $allow = new Array("gif", "png", "jpg", "jpeg");
-//if ($.inArray($ext, $allow) == -1) {
-//    alert("Only image files are accepted, please browse a image file");
-//    return;

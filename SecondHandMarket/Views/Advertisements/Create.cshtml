@@ -14,10 +14,12 @@
             <div class="form-group col-md-6 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.CategoryId" class="control-label"></label>
                 <select asp-for="@Model.Advertisement.CategoryId" class="form-control" id="categories" asp-items="@await service.GetCategoriesAsync()"></select>
+                <span asp-validation-for="@Model.Advertisement.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group col-md-6 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.LocationId" class="control-label"></label>
                 <select asp-for="@Model.Advertisement.LocationId" class="form-control" id="locations" asp-items="ViewBag.LocationId"></select>
+                <span asp-validation-for="@Model.Advertisement.LocationId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Advertisement.Title" class="control-label"></label>
@@ -29,40 +31,26 @@
                 <textarea asp-for="@Model.Advertisement.Description" class="form-control" style="height:150px">Beskriv din annons</textarea>
                 <span asp-validation-for="@Model.Advertisement.Description" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-6 start" style="padding-left:0">
+            <div class="form-group col-md-4 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.Price" class="control-label"></label>
                 <input asp-for="@Model.Advertisement.Price" class="form-control" />
                 <span asp-validation-for="@Model.Advertisement.Price" class="text-danger"></span>
             </div>
             <div class="form-group" style="padding-left:0">
                 <p>Lägg till bild</p>
-                @*multiple*@
-                <input type="file" asp-for="@Model.File" accept="image/*" placeholder="Lägg bild" />
-                @*<input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Lägg bild">*@
-                <!--<!--iv>
-    <label for="files" class="btn">Select Image</label>-->
-                <!--@*<input data-classButton="btn btn-primary" type="file" id="files" style="visibility:hidden;">*@-->
-                <!--</div>-->
+                <input type="file" id="fileId" asp-for="@Model.File" />
+                <span asp-validation-for="@Model.File" class="text-danger"></span>
             </div>
-            @*TODO Fixa så att kan lägga till flera bilder i samma form
-
             <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Upload" />
-            </div>
-        </div>
-            Lägg in bara en bild från början.
-            *@
-            <div class="form-group">
-                <input type="submit" value="Lägg in annons" class="btn btn-primary" />
+                <input type="submit" value="Lägg in annons"  class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 @*<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
