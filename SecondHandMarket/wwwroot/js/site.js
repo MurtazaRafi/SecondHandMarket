@@ -16,17 +16,19 @@ $(document).ready(function () {
 $(function () {
     $("select#locations").change(function () {
         var lId = $(this).val();
-
-        $("select#sublocations").empty().append('<option value="0" disabled="disabled" , selected="selected">Välj kommun</option>');
-        $("#sublocations").find("option").first().hide();
-
-        //TODO fixa subcetegory controller och ha metoden där (kalla på den)
-        $.getJSON(`/Advertisements/GetSubLocations?lId=${lId}`, function (data) {
-            $.each(data, function (i, item) {
-                $("select#sublocations").append(`<option value="${item.id}">${item.name}</option>`);
-            });
-        });
-    })
+        //localStorage.setItem("lId", lId);
+        GetSubLocations(lId);
+    });
 });
 
 
+function GetSubLocations(lId) {
+    $("select#sublocations").empty().append('<option value="0" disabled="disabled" , selected="selected">Välj kommun</option>');
+    $("#sublocations").find("option").first().hide();
+    //TODO fixa subcetegory controller och ha metoden där (kalla på den)
+    $.getJSON(`/Advertisements/GetSubLocations?lId=${lId}`, function (data) {
+        $.each(data, function (i, item) {
+            $("select#sublocations").append(`<option value="${item.id}">${item.name}</option>`);
+        });
+    });
+}

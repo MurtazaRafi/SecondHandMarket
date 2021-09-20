@@ -130,6 +130,10 @@ namespace SecondHandMarket.Controllers
             }
 
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
+            var subLocations = db.Locations.Include(l => l.SubLocations)
+                                .FirstOrDefault(l => l.Id == model.Advertisement.LocationId)
+                                .SubLocations.ToList();
+            ViewData["SubLocationId"] = new SelectList(subLocations, "Id", "Name");
             return View(model);
         }
         public IActionResult GetSubLocations(int lId)

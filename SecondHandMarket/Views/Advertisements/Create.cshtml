@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-6 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.SubLocationId" class="control-label">Kommun</label>
-                <select asp-for="@Model.Advertisement.SubLocationId" class="form-control" id="sublocations">
+                <select asp-for="@Model.Advertisement.SubLocationId" class="form-control" id="sublocations" asp-items="ViewBag.SubLocationId">
                     <option value="0" disabled="disabled" , selected="selected">Välj kommun</option>
                 </select>
                 <span asp-validation-for="@Model.Advertisement.SubLocationId" class="text-danger"></span>
@@ -52,7 +52,7 @@
                 <span asp-validation-for="@Model.File" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Lägg in annons" class="btn btn-primary" />
+                <input type="submit" value="Lägg in annons" id="submitbutton" class="btn btn-primary" />
             </div>
         </form>
     </div>
