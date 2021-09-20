@@ -68,8 +68,8 @@ namespace SecondHandMarket.Controllers
             //TODO längre fram User har Location som förvald       
             //var userId = userManager.GetUserAsync(User).Result.Id;
             //var userLocation = db.ApplicationUsers.Where(u=>u.Id==userId).Select(u=>u.Location)
-            var label = new SelectListItem("Välj plats", "0", true, true);
-            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name").Append(label);
+           
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
             return View();
         }
 
@@ -88,10 +88,12 @@ namespace SecondHandMarket.Controllers
                     ApplicationUserId = userManager.GetUserId(User),
                     CategoryId = model.Advertisement.CategoryId,
                     LocationId = model.Advertisement.LocationId,
+                    SubLocationId = model.Advertisement.SubLocationId,
                     Title = model.Advertisement.Title,
                     Description = model.Advertisement.Description,
                     PublishDate = DateTime.Now,
                     Price = model.Advertisement.Price
+                    
                 };
 
                 db.Add(advertisement);
@@ -127,11 +129,15 @@ namespace SecondHandMarket.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var label = new SelectListItem("Välj plats", "0", true, true);
-            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name").Append(label);
+            ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
             return View(model);
         }
-
+        public IActionResult GetSubLocations(int lId)
+        {
+            var subLocations = db.Locations.Include(l=> l.SubLocations).FirstOrDefault(l=>l.Id==lId)
+                                .SubLocations.ToList();
+            return Json(subLocations);
+        }
         // GET: Advertisements/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

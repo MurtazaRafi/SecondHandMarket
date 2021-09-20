@@ -16,11 +16,21 @@
                 <select asp-for="@Model.Advertisement.CategoryId" class="form-control" id="categories" asp-items="@await service.GetCategoriesAsync()"></select>
                 <span asp-validation-for="@Model.Advertisement.CategoryId" class="text-danger"></span>
             </div>
+
             <div class="form-group col-md-6 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.LocationId" class="control-label"></label>
-                <select asp-for="@Model.Advertisement.LocationId" class="form-control" id="locations" asp-items="ViewBag.LocationId"></select>
+                <select asp-for="@Model.Advertisement.LocationId" class="form-control" id="locations" asp-items="ViewBag.LocationId">
+                    <option value="0" disabled="disabled" , selected="selected">Välj län</option>
+                </select>
                 <span asp-validation-for="@Model.Advertisement.LocationId" class="text-danger"></span>
             </div>
+            <div class="form-group col-md-6 start" style="padding-left:0">
+                <label asp-for="@Model.Advertisement.SubLocationId" class="control-label">Kommun</label>
+                <select asp-for="@Model.Advertisement.SubLocationId" class="form-control" id="sublocations">
+                    <option value="0" disabled="disabled" , selected="selected">Välj kommun</option>
+                </select>
+                <span asp-validation-for="@Model.Advertisement.SubLocationId" class="text-danger"></span>
+            </div>           
             <div class="form-group">
                 <label asp-for="@Model.Advertisement.Title" class="control-label"></label>
                 <input asp-for="@Model.Advertisement.Title" class="form-control" />
@@ -38,11 +48,11 @@
             </div>
             <div class="form-group" style="padding-left:0">
                 <p>Lägg till bild</p>
-                <input type="file" id="fileId" asp-for="@Model.File" />
+                <input type="file" accept="image/*" id="fileId" asp-for="@Model.File" />
                 <span asp-validation-for="@Model.File" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Lägg in annons"  class="btn btn-primary" />
+                <input type="submit" value="Lägg in annons" class="btn btn-primary" />
             </div>
         </form>
     </div>

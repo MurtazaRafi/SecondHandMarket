@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SecondHandMarket.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -193,6 +193,26 @@ namespace SecondHandMarket.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubLocations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    LocationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubLocations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubLocations_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -218,12 +238,13 @@ namespace SecondHandMarket.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     Price = table.Column<int>(nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     LocationId = table.Column<int>(nullable: false),
+                    SubLocationId = table.Column<int>(nullable: false),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -247,6 +268,12 @@ namespace SecondHandMarket.Migrations
                         principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Advertisements_SubLocations_SubLocationId",
+                        column: x => x.SubLocationId,
+                        principalTable: "SubLocations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -382,7 +409,7 @@ namespace SecondHandMarket.Migrations
                 columns: new[] { "Id", "MainCategoryId", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, "Bilar" },
+                    { 6, 1, "Lastbilar" },
                     { 20, 5, "Böcker & studentlitteratur" },
                     { 19, 5, "Upplevelser & nöje" },
                     { 18, 4, "Telefoner & tillbehör" },
@@ -397,13 +424,31 @@ namespace SecondHandMarket.Migrations
                     { 9, 2, "Vitvaror" },
                     { 8, 2, "Möbler" },
                     { 7, 1, "Snöskotrar" },
-                    { 6, 1, "Lastbilar" },
-                    { 5, 1, "Cyklar" },
+                    { 21, 5, "Djur" },
+                    { 22, 5, "Sport" },
                     { 4, 1, "Mopeder" },
                     { 3, 1, "Motorcyklar" },
                     { 2, 1, "Båtar" },
-                    { 21, 5, "Djur" },
-                    { 22, 5, "Sport" }
+                    { 1, 1, "Bilar" },
+                    { 5, 1, "Cyklar" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SubLocations",
+                columns: new[] { "Id", "LocationId", "Name" },
+                values: new object[,]
+                {
+                    { 8, 20, "Karlskoga" },
+                    { 5, 12, "Stockholm" },
+                    { 4, 12, "Lidingö" },
+                    { 3, 12, "Huddinge" },
+                    { 2, 12, "Solna" },
+                    { 1, 12, "Botkyrka" },
+                    { 11, 11, "Malmö" },
+                    { 10, 10, "Kiruna" },
+                    { 9, 9, "Alvesta" },
+                    { 7, 1, "Karlskrona" },
+                    { 6, 1, "Ronneby" }
                 });
 
             migrationBuilder.InsertData(
@@ -445,6 +490,11 @@ namespace SecondHandMarket.Migrations
                 name: "IX_Advertisements_LocationId",
                 table: "Advertisements",
                 column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Advertisements_SubLocationId",
+                table: "Advertisements",
+                column: "SubLocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -509,6 +559,11 @@ namespace SecondHandMarket.Migrations
                 name: "IX_Pictures_AdvertisementId",
                 table: "Pictures",
                 column: "AdvertisementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubLocations_LocationId",
+                table: "SubLocations",
+                column: "LocationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -553,10 +608,13 @@ namespace SecondHandMarket.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Locations");
+                name: "SubLocations");
 
             migrationBuilder.DropTable(
                 name: "MainCategories");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

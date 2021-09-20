@@ -10,8 +10,8 @@ using SecondHandMarket.Data;
 namespace SecondHandMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210906092518_init")]
-    partial class init
+    [Migration("20210919132144_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,6 +170,7 @@ namespace SecondHandMarket.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LocationId")
@@ -181,7 +182,11 @@ namespace SecondHandMarket.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("SubLocationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -191,6 +196,8 @@ namespace SecondHandMarket.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("SubLocationId");
 
                     b.ToTable("Advertisements");
                 });
@@ -513,6 +520,94 @@ namespace SecondHandMarket.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.SubLocation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("SubLocations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LocationId = 12,
+                            Name = "Botkyrka"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LocationId = 12,
+                            Name = "Solna"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LocationId = 12,
+                            Name = "Huddinge"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LocationId = 12,
+                            Name = "Lidingö"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LocationId = 12,
+                            Name = "Stockholm"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LocationId = 1,
+                            Name = "Ronneby"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LocationId = 1,
+                            Name = "Karlskrona"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LocationId = 20,
+                            Name = "Karlskoga"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            LocationId = 9,
+                            Name = "Alvesta"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            LocationId = 10,
+                            Name = "Kiruna"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            LocationId = 11,
+                            Name = "Malmö"
+                        });
+                });
+
             modelBuilder.Entity("SecondHandMarket.Models.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -761,9 +856,15 @@ namespace SecondHandMarket.Migrations
                         .IsRequired();
 
                     b.HasOne("SecondHandMarket.Models.Location", "Location")
-                        .WithMany()
+                        .WithMany("Advertisements")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecondHandMarket.Models.Entities.SubLocation", "SubLocation")
+                        .WithMany("Advertisements")
+                        .HasForeignKey("SubLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -806,6 +907,15 @@ namespace SecondHandMarket.Migrations
                     b.HasOne("SecondHandMarket.Models.Entities.Property", "Property")
                         .WithMany()
                         .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SecondHandMarket.Models.Entities.SubLocation", b =>
+                {
+                    b.HasOne("SecondHandMarket.Models.Location", null)
+                        .WithMany("SubLocations")
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -22,6 +22,7 @@ namespace SecondHandMarket.Data
         public DbSet<CategoryProperty> CategoryProperties { get; set; }
         public DbSet<MainCategory> MainCategories { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<SubLocation> SubLocations { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
@@ -48,7 +49,7 @@ namespace SecondHandMarket.Data
                  new CategoryProperty { Id = 1, CategoryId = 1, PropertyId = 1 },
                  new CategoryProperty { Id = 2, CategoryId = 1, PropertyId = 2 },
                  new CategoryProperty { Id = 3, CategoryId = 2, PropertyId = 1 });
-            
+
 
             modelBuilder.Entity<Category>()
                     .HasData(
@@ -117,6 +118,21 @@ namespace SecondHandMarket.Data
                  new Location { Id = 21, Name = "Östergötland" }
 
               );
+
+            modelBuilder.Entity<SubLocation>()
+             .HasData(
+                new SubLocation { Id = 1, Name = "Botkyrka", LocationId = 12 },
+                new SubLocation { Id = 2, Name = "Solna", LocationId = 12 },
+                new SubLocation { Id = 3, Name = "Huddinge", LocationId = 12 },
+                new SubLocation { Id = 4, Name = "Lidingö", LocationId = 12 },
+                new SubLocation { Id = 5, Name = "Stockholm", LocationId = 12 },
+                new SubLocation { Id = 6, Name = "Ronneby", LocationId = 1 },
+                new SubLocation { Id = 7, Name = "Karlskrona", LocationId = 1 },
+                new SubLocation { Id = 8, Name = "Karlskoga" , LocationId = 20},
+                new SubLocation { Id = 9, Name = "Alvesta" , LocationId = 9},
+                new SubLocation { Id = 10, Name = "Kiruna" , LocationId = 10},
+                new SubLocation { Id = 11, Name = "Malmö" , LocationId = 11}
+             );
 
         }
     }

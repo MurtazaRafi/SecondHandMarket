@@ -63,14 +63,33 @@ namespace SecondHandMarket.Data
                 var users = context.ApplicationUsers.Take(50).ToArray();
 
                 var advertisements = new List<Advertisement>();
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 15; i++)
                 {
                     var advertisement = new Advertisement
                     {
                         Title = fake.Company.CatchPhrase(),
                         Description = fake.Lorem.Random.Words(10),
-                        CategoryId = fake.Random.Int(3, 19),
-                        LocationId = fake.Random.Int(1, 21),
+                        //CategoryId = fake.Random.Int(3, 19),
+                        CategoryId = fake.Random.Int(1, 22),
+                        LocationId = 12,
+                        SubLocationId =fake.Random.Int(1,5),
+                        Price = fake.Random.Int(1000, 25000),
+                        PublishDate = DateTime.Now.AddDays(fake.Random.Int(-100, 0)),
+                        Pictures = new List<Picture>() {
+                            new Picture { Path = "C:/Users/Latitude/source/repos/SecondHandMarket/SecondHandMarket/wwwroot/Pics/Laptop.jpg" } },
+                        ApplicationUserId = users[i].Id
+                    };
+                    advertisements.Add(advertisement);
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    var advertisement = new Advertisement
+                    {
+                        Title = fake.Company.CatchPhrase(),
+                        Description = fake.Lorem.Random.Words(10),
+                        CategoryId = fake.Random.Int(1, 22),
+                        LocationId = 1,
+                        SubLocationId = fake.Random.Int(6,7),
                         Price = fake.Random.Int(1000, 25000),
                         PublishDate = DateTime.Now.AddDays(fake.Random.Int(-100, 0)),
                         Pictures = new List<Picture>() {

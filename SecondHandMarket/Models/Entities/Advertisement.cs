@@ -39,6 +39,10 @@ namespace SecondHandMarket.Models
         [Required(ErrorMessage = "Välj en plats")]
         public int LocationId { get; set; }
         public Location Location { get; set; }
+        [Display(Name = "Kommun")]
+        [Required(ErrorMessage = "Välj en kommun")]
+        public int SubLocationId { get; set; }
+        public  virtual SubLocation SubLocation { get; set; }
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
