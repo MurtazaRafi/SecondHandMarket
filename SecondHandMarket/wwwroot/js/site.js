@@ -21,10 +21,13 @@ $(function () {
     });
 });
 
+$(function () {
+    $("select#sublocations").find("option").first().hide();
+});
 
 function GetSubLocations(lId) {
     $("select#sublocations").empty().append('<option value="0" disabled="disabled" , selected="selected">Välj kommun</option>');
-    $("#sublocations").find("option").first().hide();
+    $("select#sublocations").find("option").first().hide();
     //TODO fixa subcetegory controller och ha metoden där (kalla på den)
     $.getJSON(`/Advertisements/GetSubLocations?lId=${lId}`, function (data) {
         $.each(data, function (i, item) {
@@ -32,3 +35,18 @@ function GetSubLocations(lId) {
         });
     });
 }
+
+fileId.onchange = evt => {
+    const [file] = fileId.files
+    if (file) {
+        uploadBtn1.src = URL.createObjectURL(file)
+    }
+}
+
+$(function () {
+    $('#uploadBtn1').click(function (e) {
+        e.preventDefault();
+        $('#fileId').click();
+    }
+    );
+});
