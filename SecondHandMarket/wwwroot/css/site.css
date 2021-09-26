@@ -18,6 +18,12 @@ a {
     border-color: #1861ac;
 }
 
+body {
+    background-color: #f9f7f6;
+}
+.myContainer {
+    background-color: #ffffff;
+}
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;
@@ -82,9 +88,9 @@ p {
     height: 0;
 }
 
-#uploadBtn,#uploadBtn1 {
-    height: 95px;
-    width: 120px;
+.upload-Btn {
+    height: 75px;
+    width: 100px;
     color: grey;
     background-color: lightgray;
     border: none;

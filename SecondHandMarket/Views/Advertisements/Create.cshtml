@@ -8,56 +8,54 @@
 <h3>Lägg in annons hos SeconHandMarket</h3>
 <hr />
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-lg-10">
         <form asp-action="Create" id="createForm" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group col-md-4 start" style="padding-left:0">
+            <div class="form-group col-lg-4 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.CategoryId" class="control-label"></label>
                 <select asp-for="@Model.Advertisement.CategoryId" class="form-control" id="categories" asp-items="@await service.GetCategoriesAsync()"></select>
                 <span asp-validation-for="@Model.Advertisement.CategoryId" class="text-danger"></span>
             </div>
 
-            <div class="form-group col-md-4 start" style="padding-left:0">
+            <div class="form-group col-lg-4 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.LocationId" class="control-label"></label>
                 <select asp-for="@Model.Advertisement.LocationId" class="form-control" id="locations" asp-items="ViewBag.LocationId">
                     <option value="0" disabled="disabled" , selected="selected">Välj län</option>
                 </select>
                 <span asp-validation-for="@Model.Advertisement.LocationId" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-4 start" style="padding-left:0">
+            <div class="form-group col-lg-4 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.SubLocationId" class="control-label">Kommun</label>
                 <select asp-for="@Model.Advertisement.SubLocationId" class="form-control" id="sublocations" asp-items="ViewBag.SubLocationId">
                     <option value="0" disabled="disabled" , selected="selected">Välj kommun</option>
                 </select>
                 <span asp-validation-for="@Model.Advertisement.SubLocationId" class="text-danger"></span>
             </div>           
-            <div class="form-group col-10" style="padding-left:0">
+            <div class="form-group col-lg-8" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.Title" class="control-label"></label>
                 <input asp-for="@Model.Advertisement.Title" class="form-control" />
                 <span asp-validation-for="@Model.Advertisement.Title" class="text-danger"></span>
             </div>
-            <div class="form-group col-10" style="padding-left:0">
+            <div class="form-group col-lg-8" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.Description" class="control-label"></label>
                 <textarea asp-for="@Model.Advertisement.Description" class="form-control" style="height:150px">Beskriv din annons</textarea>
                 <span asp-validation-for="@Model.Advertisement.Description" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-3 start" style="padding-left:0">
+            <div class="form-group col-lg-3 start" style="padding-left:0">
                 <label asp-for="@Model.Advertisement.Price" class="control-label"></label>
                 <input asp-for="@Model.Advertisement.Price" class="form-control" />
                 <span asp-validation-for="@Model.Advertisement.Price" class="text-danger"></span>
             </div>
-            <div class="form-group" style="padding-left:0">
+            <div class="form-group col-lg-12" style="padding-left:0">
                 <p>Bilder</p>
                 @*<button class="fas fa-camera fa-2x" id='btn-upload'></button>*@
-                <input type="image" src="~/Pics/Välj bild.PNG" id='uploadBtn1'>
-                <input type="image" src="~/Pics/kamera.PNG" id='uploadBtn'>
-                <input type="image" src="~/Pics/kamera.PNG" id='uploadBtn'>
-                <input type="image" src="~/Pics/kamera.PNG" id='uploadBtn'>
-                <input type="image" src="~/Pics/kamera.PNG" id='uploadBtn'>
-                <input type="image" src="~/Pics/kamera.PNG" id='uploadBtn'>
-                <input type="file" accept="image/*" id="fileId" asp-for="@Model.File" style="padding-left:0" />
-
-                @*<input id="blah" type="image" src="#">*@
+                <input class="upload-Btn" type="image" src="~/Pics/Välj bild.PNG" id="image1">
+                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image2">
+                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image3">
+                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image4">
+                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image5">
+                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image6">
+                <input type="file" multiple accept="image/*" id="fileId" asp-for="@Model.File" style="padding-left:0" />
 
                 @*<input accept="image/*" id="fileId" class="inputfile" asp-for="@Model.File" style="display: none;">*@
                 @*<input class="fas fa-camera" onclick="document.getElementById('fileId').click();" />*@

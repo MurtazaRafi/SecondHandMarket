@@ -3,7 +3,6 @@
 
 // Write your JavaScript code.
 
-//$('select > option:first').hide();
 
 $(document).ready(function () {
     $("#categories").find("option").first().hide();
@@ -16,7 +15,6 @@ $(document).ready(function () {
 $(function () {
     $("select#locations").change(function () {
         var lId = $(this).val();
-        //localStorage.setItem("lId", lId);
         GetSubLocations(lId);
     });
 });
@@ -36,15 +34,20 @@ function GetSubLocations(lId) {
     });
 }
 
+
 fileId.onchange = evt => {
-    const [file] = fileId.files
-    if (file) {
-        uploadBtn1.src = URL.createObjectURL(file)
+    var images = [image1, image2, image3, image4, image5, image6];
+    var files = $("#fileId")[0].files;
+
+    for (var i = 0; i < files.length; i++) {
+
+        images[i].src = URL.createObjectURL(files[i])
     }
 }
 
 $(function () {
-    $('#uploadBtn1').click(function (e) {
+    let uploadBtn = document.getElementsByClassName('upload-Btn');
+    $(uploadBtn).click(function (e) {
         e.preventDefault();
         $('#fileId').click();
     }
