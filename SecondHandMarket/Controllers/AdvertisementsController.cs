@@ -68,7 +68,7 @@ namespace SecondHandMarket.Controllers
             //TODO längre fram User har Location som förvald       
             //var userId = userManager.GetUserAsync(User).Result.Id;
             //var userLocation = db.ApplicationUsers.Where(u=>u.Id==userId).Select(u=>u.Location)
-           
+
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");
             return View();
         }
@@ -93,38 +93,43 @@ namespace SecondHandMarket.Controllers
                     Description = model.Advertisement.Description,
                     PublishDate = DateTime.Now,
                     Price = model.Advertisement.Price
-                    
+
                 };
 
                 db.Add(advertisement);
 
                 //TODO bryt ut egen metod
-                if (model.File != null)
+                if (model.Files != null)
                 {
-                    string categoryName = db.Categories.First(c => c.Id == advertisement.CategoryId).Name;
-                    string path = Path.Combine(environment.WebRootPath, $"uploads/{categoryName}");
-
-                    if (!Directory.Exists(path))
+                    List<Picture> pictures = new List<Picture>();
+                    foreach (IFormFile file in model.Files)
                     {
-                        Directory.CreateDirectory(path);
+                        string categoryName = db.Categories.First(c => c.Id == advertisement.CategoryId).Name;
+                        string path = Path.Combine(environment.WebRootPath, $"uploads/{categoryName}");
+
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+
+                        string fileName = Convert.ToString(Guid.NewGuid());
+                        using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                            stream.Flush();
+                        }
+
+                        Picture picture = new Picture
+                        {
+                            Path = $"/uploads/{categoryName}/{fileName}",
+                            Advertisement = advertisement
+                        };
+                        pictures.Add(picture);
                     }
 
-                    string fileName = Convert.ToString(Guid.NewGuid());
-                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
-                    {
-                        model.File.CopyTo(stream);
-                        stream.Flush();
-                    }
-
-                    Picture picture = new Picture
-                    {
-                        Path = $"/uploads/{categoryName}/{fileName}",
-                        Advertisement = advertisement
-                    };
-
-
-                    db.Add(picture);
+                    await db.AddRangeAsync(pictures);
                 }
+
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -138,7 +143,7 @@ namespace SecondHandMarket.Controllers
         }
         public IActionResult GetSubLocations(int lId)
         {
-            var subLocations = db.Locations.Include(l=> l.SubLocations).FirstOrDefault(l=>l.Id==lId)
+            var subLocations = db.Locations.Include(l => l.SubLocations).FirstOrDefault(l => l.Id == lId)
                                 .SubLocations.ToList();
             return Json(subLocations);
         }
@@ -155,7 +160,7 @@ namespace SecondHandMarket.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
+            ViewData["ApplicationUserId"] = new SelectList(db.Users, "Id", "Id", advertisement.ApplicationUserId);
             ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Id", advertisement.CategoryId);
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Id", advertisement.LocationId);
             return View(advertisement);
@@ -193,7 +198,7 @@ namespace SecondHandMarket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(db.ApplicationUsers, "Id", "Id", advertisement.ApplicationUserId);
+            ViewData["ApplicationUserId"] = new SelectList(db.Users, "Id", "Id", advertisement.ApplicationUserId);
             ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Id", advertisement.CategoryId);
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Id", advertisement.LocationId);
             return View(advertisement);

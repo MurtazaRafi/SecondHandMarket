@@ -60,7 +60,7 @@ namespace SecondHandMarket.Data
                 await userManger.CreateAsync(admin, adminPW);
                 await userManger.AddToRoleAsync(admin, "Admin");
 
-                var users = context.ApplicationUsers.Take(50).ToArray();
+                var users = context.Users.Take(50).ToArray();
 
                 var advertisements = new List<Advertisement>();
                 for (int i = 0; i < 15; i++)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SecondHandMarket.Models;
 using SecondHandMarket.Models.Entities;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace SecondHandMarket.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,7 +25,6 @@ namespace SecondHandMarket.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<SubLocation> SubLocations { get; set; }
         public DbSet<Picture> Pictures { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
