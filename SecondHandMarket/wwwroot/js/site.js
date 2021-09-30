@@ -48,3 +48,22 @@ $(function () {
     }
     );
 });
+
+//$(function () {
+//    let deleteButton = document.getElementById('deleteButton');
+//    deleteButton.onclick = function () {
+//        var files = $("#fileId"[0].files);
+//        image1.src = "/Pics/kamera.PNG";
+//        files[0].val = "";
+//    };
+//});
+
+
+
+$(function () {
+    let deleteButton = document.getElementById('deleteButton');
+    deleteButton.onclick = function () {
+        document.getElementById("fileId").value = null;
+        image1.src = "/Pics/kamera.PNG";
+    };
+});

@@ -11,56 +11,60 @@
     <div class="col-lg-10 col-md-12">
         <form asp-action="Create" id="createForm" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <label asp-for="@Model.Advertisement.CategoryId" class="control-label"></label>
+            <label asp-for="@Model.Advertisement.CategoryId" class="control-label"></label>
             <div class="input-group col-lg-4 col-md-5 start" style="padding-left:0">
                 <select asp-for="@Model.Advertisement.CategoryId" class="form-control" id="categories" asp-items="@await service.GetCategoriesAsync()"></select>
-                <span asp-validation-for="@Model.Advertisement.CategoryId" class="text-danger"></span>
             </div>
+            <span asp-validation-for="@Model.Advertisement.CategoryId" class="text-danger inline"></span>
 
-                <label asp-for="@Model.Advertisement.LocationId" class="control-label"></label>
+            <label asp-for="@Model.Advertisement.LocationId" class="control-label mt-3"></label>
             <div class="input-group col-lg-4 col-md-5 start" style="padding-left:0">
                 <select asp-for="@Model.Advertisement.LocationId" class="form-control" id="locations" asp-items="ViewBag.LocationId">
                     <option value="0" disabled="disabled" , selected="selected">Välj län</option>
                 </select>
-                <span asp-validation-for="@Model.Advertisement.LocationId" class="text-danger"></span>
             </div>
-                <label asp-for="@Model.Advertisement.SubLocationId" class="control-label">Kommun</label>
+            <span asp-validation-for="@Model.Advertisement.LocationId" class="text-danger inline"></span>
+
+            <label asp-for="@Model.Advertisement.SubLocationId" class="control-label mt-3">Kommun</label>
             <div class="input-group col-lg-4 col-md-5 start" style="padding-left:0">
                 <select asp-for="@Model.Advertisement.SubLocationId" class="form-control" id="sublocations" asp-items="ViewBag.SubLocationId">
                     <option value="0" disabled="disabled" , selected="selected">Välj kommun</option>
                 </select>
-                <span asp-validation-for="@Model.Advertisement.SubLocationId" class="text-danger"></span>
             </div>
-                <label asp-for="@Model.Advertisement.Title" class="control-label"></label>
+            <span asp-validation-for="@Model.Advertisement.SubLocationId" class="text-danger inline"></span>
+
+            <label asp-for="@Model.Advertisement.Title" class="control-label mt-3"></label>
             <div class="input-group col-lg-8 col-md-9" style="padding-left:0">
                 <input asp-for="@Model.Advertisement.Title" class="form-control" />
-                <span asp-validation-for="@Model.Advertisement.Title" class="text-danger"></span>
             </div>
-                <label asp-for="@Model.Advertisement.Description" class="control-label"></label>
+            <span asp-validation-for="@Model.Advertisement.Title" class="text-danger inline"></span>
+
+            <label asp-for="@Model.Advertisement.Description" class="control-label mt-3"></label>
             <div class="input-group col-lg-8 col-md-9" style="padding-left:0">
                 <textarea asp-for="@Model.Advertisement.Description" class="form-control" style="height:150px">Beskriv din annons</textarea>
-                <span asp-validation-for="@Model.Advertisement.Description" class="text-danger"></span>
             </div>
-            <label asp-for="@Model.Advertisement.Price" class="control-label"></label>
+            <span asp-validation-for="@Model.Advertisement.Description" class="text-danger inline"></span>
+
+            <label asp-for="@Model.Advertisement.Price" class="control-label mt-3"></label>
             <div class="input-group col-lg-3 col-md-4 start" style="padding-left:0">
                 <input asp-for="@Model.Advertisement.Price" class="form-control" />
                 <div class="input-group-append">
                     <span class="input-group-text">kr</span>
                 </div>
-                <span asp-validation-for="@Model.Advertisement.Price" class="text-danger"></span>
+                <span asp-validation-for="@Model.Advertisement.Price" class="text-danger inline"></span>
             </div>
-            <div class="form-group" style="padding-left:0">
+            <div class="form-group mt-3" style="padding-left:0">
                 <p>Bilder</p>
                 @*<button class="fas fa-camera fa-2x" id='btn-upload'></button>*@
-                <input class="upload-Btn" type="image" src="~/Pics/Välj bild.PNG" id="image1">
+                <input class="upload-Btn " type="image" src="~/Pics/Välj bild.PNG" id="image1">
                 <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image2">
                 <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image3">
                 <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image4">
                 <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image5">
                 <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image6">
-                <input type="file" multiple accept="image/*" id="fileId" asp-for="@Model.Files" style="padding-left:0" />
-                <button class="btn-danger" id="myButton">Ta bort bild</button>
-                <span asp-validation-for="@Model.Files" class="text-danger inline"></span>
+                <input type="file"  accept="image/*" id="fileId" asp-for="@Model.Files" value="0" style="padding-left:0" />
+                <span asp-validation-for="@Model.Files" value="0" class="text-danger inline"></span>
+                <button type="button" class="btn-danger" id="deleteButton">Ta bort bild</button>
                 @*<input accept="image/*" id="fileId" class="inputfile" asp-for="@Model.File" style="display: none;">*@
                 @*<input class="fas fa-camera" onclick="document.getElementById('fileId').click();" />*@
 

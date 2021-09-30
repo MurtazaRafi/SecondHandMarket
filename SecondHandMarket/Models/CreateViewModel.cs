@@ -13,6 +13,6 @@ namespace SecondHandMarket.Models
         public Advertisement Advertisement { get; set; }
 
         [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".gif", "tiff" })]
-        public  List<IFormFile> Files { get; set; }
+        public IFormFile[] Files { get; set; }
     }
 }
