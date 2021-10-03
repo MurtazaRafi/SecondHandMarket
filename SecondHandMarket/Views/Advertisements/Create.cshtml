@@ -55,20 +55,41 @@
             </div>
             <div class="form-group mt-3" style="padding-left:0">
                 <p>Bilder</p>
-                @*<button class="fas fa-camera fa-2x" id='btn-upload'></button>*@
-                <input class="upload-Btn " type="image" src="~/Pics/Välj bild.PNG" id="image1">
-                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image2">
-                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image3">
-                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image4">
-                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image5">
-                <input class="upload-Btn" type="image" src="~/Pics/kamera.PNG" id="image6">
-                <input type="file"  accept="image/*" id="fileId" asp-for="@Model.Files" value="0" style="padding-left:0" />
-                <span asp-validation-for="@Model.Files" value="0" class="text-danger inline"></span>
-                <button type="button" class="btn-danger" id="deleteButton">Ta bort bild</button>
-                @*<input accept="image/*" id="fileId" class="inputfile" asp-for="@Model.File" style="display: none;">*@
-                @*<input class="fas fa-camera" onclick="document.getElementById('fileId').click();" />*@
 
-                @*<img id="blah" src="#" alt="your image" />*@
+                @*tas bort experiment*@
+                @*<div class="img-wrap">
+            <button class="clear" onclick="twz()">x</button>
+            <img id="output" width="80" height="80" src="~/Pics/Välj bild.PNG">
+
+        </div>*@
+                @*<input type="file" accept="image/*" id="fileId" onchange='loadFile(event)' asp-for="@Model.Files" value="0" style="padding-left:0" />*@
+
+                @*<div class="img-wrap">
+            <button id="clear" class="hide" onclick="twz()">x</button>
+            <img class="upload-Btn " src="~/Pics/Välj bild.PNG" id="image1">
+        </div>
+        <img id="output" width="80" height="80">*@
+                @*tas bort*@
+
+                <div class="img-wrap">
+                    <span class="close" id="deleteButton">&times;</span>
+                    <img class="upload-Btn img-wrap" src="~/Pics/Välj bild.PNG" id="image1">
+                </div>
+
+                @for (int i = 2; i <= 6; i++)
+                {
+                    <div class="img-wrap">
+                        <span class="close" id="deleteButton">&times;</span>
+                        <img class="upload-Btn" src="~/Pics/kamera.PNG" id=@("image"+i)>
+                    </div>
+                }
+                <input type="file" accept="image/*" id="fileId1" asp-for="@Model.Files" style="padding-left:0" />
+                <input type="file" accept="image/*" id="fileId2" asp-for="@Model.Files" style="padding-left:0" />
+
+                <span asp-validation-for="@Model.Files" class="text-danger inline"></span>
+
+                @*<button type="button" class="btn-danger" id="deleteButton">Ta bort bild</button>*@
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Lägg in annons" id="submitbutton" class="btn btn-primary" />

@@ -30,9 +30,9 @@ function GetSubLocations(lId) {
 }
 
 
-fileId.onchange = evt => {
+fileId1.onchange = evt => {
     var images = [image1, image2, image3, image4, image5, image6];
-    var files = $("#fileId")[0].files;
+    var files = $("#fileId1")[0].files;
 
     for (var i = 0; i < files.length; i++) {
 
@@ -44,26 +44,57 @@ $(function () {
     let uploadBtn = document.getElementsByClassName('upload-Btn');
     $(uploadBtn).click(function (e) {
         e.preventDefault();
-        $('#fileId').click();
+        $('#fileId1').click();
     }
     );
 });
-
-//$(function () {
-//    let deleteButton = document.getElementById('deleteButton');
-//    deleteButton.onclick = function () {
-//        var files = $("#fileId"[0].files);
-//        image1.src = "/Pics/kamera.PNG";
-//        files[0].val = "";
-//    };
-//});
-
 
 
 $(function () {
     let deleteButton = document.getElementById('deleteButton');
     deleteButton.onclick = function () {
-        document.getElementById("fileId").value = null;
+        document.getElementById("fileId1").value = null;
+
+        if (document.getElementById("fileId2").value != null) {
+            document.getElementById("fileId2").setAttribute("id", "fileId1");
+
+        }
+        else {
+
         image1.src = "/Pics/kamera.PNG";
+        }
+        //TODO lägg till If sats (om fil 2 null visa kamera annars ej)
     };
 });
+
+
+fileId2.onchange = evt => {
+    var images = [image1, image2, image3, image4, image5, image6];
+    var files = $("#fileId2")[0].files;
+
+    for (var i = 0; i < files.length; i++) {
+
+        image2.src = URL.createObjectURL(files[i])
+    }
+}
+
+// Experimentrar kan tas bort sen
+//var loadFile = function (event) {
+//    var output = document.getElementById('output');
+//    output.src = URL.createObjectURL(event.target.files[0]);
+//    $("#clear").removeClass("hide");
+//};
+
+
+
+
+//(function () {
+//    let deleteButton = document.getElementById('deleteButton');
+//    deleteButton.onclick = function () {
+//        document.getElementById("fileId1").value = null;
+//        //document.getElementById("fileId2").setAttribute("id", "fileId1");
+//        image1.src = "/Pics/kamera.PNG";
+//    };
+//});
+
+

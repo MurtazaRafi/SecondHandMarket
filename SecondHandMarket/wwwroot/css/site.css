@@ -21,9 +21,11 @@ a {
 body {
     background-color: #f9f7f6;
 }
+
 .myContainer {
     background-color: #ffffff;
 }
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;
@@ -87,8 +89,9 @@ p {
     width: 0px;
     height: 0px;
 }
-.inline{
-    display:block;
+
+.inline {
+    display: block;
 }
 
 .upload-Btn {
@@ -108,3 +111,43 @@ input {
     margin: 0px;
     padding: 0px;
 }
+
+/*.img-wrap {
+    position: relative;
+    display: inline-block;*/
+/*border: 1px red solid;*/
+/*font-size: 0;
+}
+
+.img-wrap .close {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    z-index: 100;
+    color:white;
+    background-color: darkslategrey;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    width:13px;
+    height:13px;
+}*/
+.img-wrap {
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+}
+
+    .img-wrap .close {
+        position: absolute;
+        top: -7px;
+        right: -3px;
+        z-index: 100;
+        background-color: transparent;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+    }
