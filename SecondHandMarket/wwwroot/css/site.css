@@ -85,7 +85,9 @@ p {
     margin-bottom: 0.5rem;
 }
 
-#fileId {
+
+/*Kommentera button när byggt färdig, bra menu för pattern kunna section vilken filter som laddas upp
+*/.file {
     width: 0px;
     height: 0px;
 }

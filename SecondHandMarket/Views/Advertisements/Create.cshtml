@@ -71,20 +71,23 @@
         <img id="output" width="80" height="80">*@
                 @*tas bort*@
 
-                <div class="img-wrap">
-                    <span class="close" id="deleteButton">&times;</span>
+                <div class="img-wrap" id="div1">
+                    <input type="file" class="file" accept="image/*" id="fileId1" asp-for="@Model.Files" style="padding-left:0" />
+                    <span class="close" id="deleteButton" >&times;</span>
                     <img class="upload-Btn img-wrap" src="~/Pics/Välj bild.PNG" id="image1">
                 </div>
-
-                @for (int i = 2; i <= 6; i++)
+                <div class="img-wrap" id="div2">
+                    <span class="close" id="deleteButton">&times;</span>
+                    <img class="upload-Btn" src="~/Pics/kamera.PNG" id="image2">
+                </div>
+                @for (int i = 3; i <= 6; i++)
                 {
                     <div class="img-wrap">
                         <span class="close" id="deleteButton">&times;</span>
                         <img class="upload-Btn" src="~/Pics/kamera.PNG" id=@("image"+i)>
                     </div>
                 }
-                <input type="file" accept="image/*" id="fileId1" asp-for="@Model.Files" style="padding-left:0" />
-                <input type="file" accept="image/*" id="fileId2" asp-for="@Model.Files" style="padding-left:0" />
+                <input type="file" class="file2" accept="image/*" id="fileId2" onchange='loadFile(event)' asp-for="@Model.Files" style="padding-left:0" />
 
                 <span asp-validation-for="@Model.Files" class="text-danger inline"></span>
 
