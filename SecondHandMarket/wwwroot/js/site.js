@@ -1,12 +1,15 @@
 ﻿
 //Create view
+
 $(document).ready(function () {
     $("#categories").find("option").first().hide();
 });
 
+
 $(document).ready(function () {
     $("#locations").find("option").first().hide();
 });
+
 
 $(function () {
     $("select#locations").change(function () {
@@ -15,9 +18,11 @@ $(function () {
     });
 });
 
+
 $(function () {
     $("select#sublocations").find("option").first().hide();
 });
+
 
 function GetSubLocations(lId) {
     $("select#sublocations").empty().append('<option value="0" disabled="disabled" , selected="selected">Välj kommun</option>');
@@ -31,23 +36,7 @@ function GetSubLocations(lId) {
 }
 
 
-
 var count = 0;
-
-//$(function () {
-//    let uploadBtn = document.getElementsByClassName('upload-Btn');
-//    $(uploadBtn).click(function (e) {
-//        e.preventDefault();
-
-//        var formGroup = $(".myFormGroup");
-//        var div = formGroup.find("div:eq(" + count + ")");
-
-//        var file = div.find('input')[0];
-//        var cl = file.click();
-
-//    }
-//    );
-//});
 
 var upload = function (e) {
     e.preventDefault();
@@ -60,16 +49,20 @@ var upload = function (e) {
 
 }
 
-
 function removeDiv(elem) {
     $(elem).parent('div').remove();
 
-    if (count < 6) {
+    if (count <= 6) {
         var formGroup = $(".myFormGroup");
         var div = document.createElement("div");
         div.className = "img-wrap";
-        //TODO if count < 5. img src = Lägg bild
+
+        if (count == 6) {
+            div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="close" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/Välj bild.PNG" onclick="upload(event)"> ');
+        }
+        else {
         div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="close" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/kamera.PNG" onclick="upload(event)"> ');
+        }
         formGroup.append(div);
     }
     count--;
@@ -78,20 +71,18 @@ function removeDiv(elem) {
 var previewImage = function (event) {
     var image = $(event.target).parent().find('img')[0];
     image.src = URL.createObjectURL(event.target.files[0]);
+
     count++;
+    if (count < 6) { 
 
-    //if (event.target.files.value!="") { //value blir undefined ha något annat för kontroll image.src ends with bild.PNG kanske...
-    //}
+        var span = $(event.target).parent().find('span')[0];
+        span.style.visibility = "visible";
+        var formGroup = $(".myFormGroup");
+        var div = formGroup.find("div:eq(" + count + ")");
 
-    var span = $(event.target).parent().find('span')[0];
-    span.style.visibility = "visible";
-    var formGroup = $(".myFormGroup");
-    var div = formGroup.find("div:eq(" + count + ")");
+        var nextImage = div.find('img')[0];
 
-    var nextImage = div.find('img')[0];
-
-    if (count<6) {
-    nextImage.src = "/Pics/Välj bild.PNG"
+        nextImage.src = "/Pics/Välj bild.PNG"
     }
 }
 
