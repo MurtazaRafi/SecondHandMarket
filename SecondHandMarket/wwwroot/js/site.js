@@ -1,4 +1,5 @@
 ﻿
+//Create view
 $(document).ready(function () {
     $("#categories").find("option").first().hide();
 });
@@ -31,79 +32,67 @@ function GetSubLocations(lId) {
 
 
 
-$(function () {
-    let uploadBtn = document.getElementsByClassName('upload-Btn');
-    $(uploadBtn).click(function (e) {
-        e.preventDefault();
-        $('#fileId1').click();
+var count = 0;
+
+//$(function () {
+//    let uploadBtn = document.getElementsByClassName('upload-Btn');
+//    $(uploadBtn).click(function (e) {
+//        e.preventDefault();
+
+//        var formGroup = $(".myFormGroup");
+//        var div = formGroup.find("div:eq(" + count + ")");
+
+//        var file = div.find('input')[0];
+//        var cl = file.click();
+
+//    }
+//    );
+//});
+
+var upload = function (e) {
+    e.preventDefault();
+
+    var formGroup = $(".myFormGroup");
+    var div = formGroup.find("div:eq(" + count + ")");
+
+    var file = div.find('input')[0];
+    var cl = file.click();
+
+}
+
+
+function removeDiv(elem) {
+    $(elem).parent('div').remove();
+
+    if (count < 6) {
+        var formGroup = $(".myFormGroup");
+        var div = document.createElement("div");
+        div.className = "img-wrap";
+        //TODO if count < 5. img src = Lägg bild
+        div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="close" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/kamera.PNG" onclick="upload(event)"> ');
+        formGroup.append(div);
     }
-    );
-});
+    count--;
+}
 
+var previewImage = function (event) {
+    var image = $(event.target).parent().find('img')[0];
+    image.src = URL.createObjectURL(event.target.files[0]);
+    count++;
 
-fileId1.onchange = evt => {
-    var images = [image1, image2, image3, image4, image5, image6];
-    var files = $("#fileId1")[0].files;
+    //if (event.target.files.value!="") { //value blir undefined ha något annat för kontroll image.src ends with bild.PNG kanske...
+    //}
 
-    for (var i = 0; i < files.length; i++) {
+    var span = $(event.target).parent().find('span')[0];
+    span.style.visibility = "visible";
+    var formGroup = $(".myFormGroup");
+    var div = formGroup.find("div:eq(" + count + ")");
 
-        images[i].src = URL.createObjectURL(files[i])
+    var nextImage = div.find('img')[0];
+
+    if (count<6) {
+    nextImage.src = "/Pics/Välj bild.PNG"
     }
 }
 
-//$(function () {
-//    let deleteButton = document.getElementById('deleteButton');
-//    deleteButton.onclick = function () {
-//        //document.getElementById("fileId1").value = null;
-//        //document.getElementById("fileId1").remove();
-//        //document.getElementById("fileId1").setAttribute("id", "");
-
-//        if (document.getElementById("fileId2").value != "") {
-//            document.getElementById("fileId2").setAttribute("id", "fileId1");
-
-//            //document.getElementById("image2").setAttribute("id", "image1");
-//            document.getElementById("div1").remove();
-//            document.getElementById("div2").setAttribute("id", "div1");
-//            //var img2 = $("#div2").children('img').eq(0);
-//            //img2.setAttribute("id", "image1");
-
-//        }
-//        else {
-
-//            image1.src = "/Pics/kamera.PNG";
-//        }
-//        //TODO lägg till If sats (om fil 2 null visa kamera annars ej)
-//    };
-//});
-
-
-//fileId2.onchange = evt => {
-//    var images = [image1, image2, image3, image4, image5, image6];
-//    var files = [fileId1, fileId2];
-//    var file = (files[0])[0].files;
-
-//        image2.src = URL.createObjectURL(file[0])
-//}
-
-var loadFile = function (event) {
-    var output = document.getElementById('image2');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    $("#close").show();
-};
-
-
-$('#deleteButton').click(function () {
-    var div = $(this).parent();
-    div.remove();
-})
-
-//(function () {
-//    let deleteButton = document.getElementById('deleteButton');
-//    deleteButton.onclick = function () {
-//        document.getElementById("fileId1").value = null;
-//        //document.getElementById("fileId2").setAttribute("id", "fileId1");
-//        image1.src = "/Pics/kamera.PNG";
-//    };
-//});
-
-
+// Create view end
