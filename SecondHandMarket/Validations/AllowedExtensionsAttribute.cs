@@ -33,6 +33,11 @@ namespace SecondHandMarket.Validations
                 }
 
             }
+
+            if (files.Count>6)
+            {
+                return new ValidationResult("Kan ej ladda upp fler än 6 bilder");
+            }
             return ValidationResult.Success;
         }
     }
