@@ -19,24 +19,27 @@ namespace SecondHandMarket.Validations
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var files = value as LinkedList<IFormFile>;
-
-            foreach (IFormFile file in files)
+            if (value != null)
             {
-                if (file != null)
+                var files = value as LinkedList<IFormFile>;
+
+                foreach (IFormFile file in files)
                 {
-                    var extension = Path.GetExtension(file.FileName);
-                    if (!_extensions.Contains(extension.ToLower()))
+                    if (file != null)
                     {
-                        return new ValidationResult("Du måste ladda upp en bildfil");
+                        var extension = Path.GetExtension(file.FileName);
+                        if (!_extensions.Contains(extension.ToLower()))
+                        {
+                            return new ValidationResult("Du måste ladda upp en bildfil");
+                        }
                     }
+
                 }
 
-            }
-
-            if (files.Count>6)
-            {
-                return new ValidationResult("Kan ej ladda upp fler än 6 bilder");
+                if (files.Count > 6)
+                {
+                    return new ValidationResult("Kan ej ladda upp fler än 6 bilder");
+                }
             }
             return ValidationResult.Success;
         }

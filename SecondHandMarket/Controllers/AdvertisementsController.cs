@@ -129,9 +129,11 @@ namespace SecondHandMarket.Controllers
 
                     await db.AddRangeAsync(pictures);
                 }
+                ViewBag.Result = "Din annons är nu tillagd!";
 
                 await db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return View();
             }
 
             ViewData["LocationId"] = new SelectList(db.Locations, "Id", "Name");

@@ -31,8 +31,7 @@ namespace SecondHandMarket.Models
         [Required(ErrorMessage = "Välj en kategori")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public  ICollection<Picture> Pictures { get; set; } //virtual
-        //TODO ändra till bara en picture från början? 0 eller 1 int? picId eller som nu 0 eller många, Se källan...
+        public  ICollection<Picture> Pictures { get; set; } //virtual?
         public ICollection<AdvertisementProperty> AdvertisementProperties { get; set; }
         public ICollection<CategoryProperty> CategoryProperties { get; set; }
         [Display(Name = "Plats")]

@@ -57,18 +57,18 @@
                 <p>Bilder</p>
                 <span asp-validation-for="@Model.Files" class="text-danger inline"></span>
 
-                <div class="img-wrap" >
-                    <input type="file" class="file" accept="image/*"  onchange="previewImage(event)" asp-for="@Model.Files" style="padding-left:0" />
+                <div class="img-wrap">
+                    <input type="file" class="file" accept="image/*" onchange="previewImage(event)" asp-for="@Model.Files" style="padding-left:0" />
                     <span class="close" onclick='removeDiv(this)'>&times;</span>
                     <img class="upload-Btn img-wrap" src="~/Pics/Välj bild.PNG" onclick="upload(event)">
                 </div>
                 @for (int i = 1; i < 6; i++)
                 {
-                <div class="img-wrap">
-                    <input type="file" class="file" accept="image/*" onchange="previewImage(event)" asp-for="@Model.Files" style="padding-left:0" />
-                    <span class="close" onclick='removeDiv(this)'>&times;</span>
-                    <img class="upload-Btn img-wrap" src="~/Pics/kamera.PNG" onclick="upload(event)">
-                </div>            
+                    <div class="img-wrap">
+                        <input type="file" class="file" accept="image/*" onchange="previewImage(event)" asp-for="@Model.Files" style="padding-left:0" />
+                        <span class="close" onclick='removeDiv(this)'>&times;</span>
+                        <img class="upload-Btn img-wrap" src="~/Pics/kamera.PNG" onclick="upload(event)">
+                    </div>
 
                 }
             </div>
@@ -85,4 +85,35 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<div class="modal fade" id="AdvertisementCreated" tabindex="-1" role="dialog" aria-labelledby="aModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<h5 class="modal-title" id="aModalLabel">TESTEST</h5>*@
+            </div>
+            <div class="modal-body">
+                @ViewBag.Result
+            </div>
+            <div class="modal-footer">
+                <a  asp-action="Index">Visa annonser</a> @*TODO kanske skicka till mina annonser sida*@
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    if (ViewBag.Result != null)
+    {
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#AdvertisementCreated").modal('show');
+            });
+        </script>
+    }
 }
