@@ -58,10 +58,10 @@ function removeDiv(elem) {
         div.className = "img-wrap";
 
         if (count == 6) {
-            div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="close" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/Välj bild.PNG" onclick="upload(event)"> ');
+            div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="delete" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/Välj bild.PNG" onclick="upload(event)"> ');
         }
         else {
-        div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="close" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/kamera.PNG" onclick="upload(event)"> ');
+        div.innerHTML = ('<input type="file" class="file" accept="image/*"  onchange="previewImage(event)" id="Files" name="Files" style="padding-left:0" /> <span class="delete" onclick = "removeDiv(this)" >&times </span> <img class= "upload-Btn img-wrap" src = "/Pics/kamera.PNG" onclick="upload(event)"> ');
         }
         formGroup.append(div);
     }

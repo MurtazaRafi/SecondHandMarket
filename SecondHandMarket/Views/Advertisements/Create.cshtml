@@ -59,14 +59,14 @@
 
                 <div class="img-wrap">
                     <input type="file" class="file" accept="image/*" onchange="previewImage(event)" asp-for="@Model.Files" style="padding-left:0" />
-                    <span class="close" onclick='removeDiv(this)'>&times;</span>
+                    <span class="delete" onclick='removeDiv(this)'>&times;</span>
                     <img class="upload-Btn img-wrap" src="~/Pics/Välj bild.PNG" onclick="upload(event)">
                 </div>
                 @for (int i = 1; i < 6; i++)
                 {
                     <div class="img-wrap">
                         <input type="file" class="file" accept="image/*" onchange="previewImage(event)" asp-for="@Model.Files" style="padding-left:0" />
-                        <span class="close" onclick='removeDiv(this)'>&times;</span>
+                        <span class="delete" onclick='removeDiv(this)'>&times;</span>
                         <img class="upload-Btn img-wrap" src="~/Pics/kamera.PNG" onclick="upload(event)">
                     </div>
 

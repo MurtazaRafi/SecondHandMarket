@@ -142,15 +142,16 @@ input {
     font-size: 0;
 }
 
-    .img-wrap .close {
+    .img-wrap .delete {
         position: absolute;
-        top: -7px;
+        top: -4px;
         right: -3px;
+        padding: 0px 1px 2px 1px;
+        line-height: 6px;
         z-index: 100;
-        background-color: transparent;
-        color: black;
-        font-weight: bold;
+        background-color: black;
+        color: white;
         cursor: pointer;
-        font-size: 14px;
-        visibility:hidden;
+        font-size: 10px;
+        visibility: hidden;
     }
