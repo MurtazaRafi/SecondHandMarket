@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using SecondHandMarket.Data;
 using SecondHandMarket.Models;
 using SecondHandMarket.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,7 +69,7 @@ namespace SecondHandMarket
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Advertisements}/{action=create}");
+                    pattern: "{controller=Advertisements}/{action=index}");
                 endpoints.MapRazorPages();
             });
         }

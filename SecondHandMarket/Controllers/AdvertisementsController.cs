@@ -49,6 +49,7 @@ namespace SecondHandMarket.Controllers
             }
 
             var advertisement = await db.Advertisements
+                .Include(a=>a.Pictures)
                 .Include(a => a.ApplicationUser)
                 .Include(a => a.Category)
                 .Include(a => a.Location)
@@ -112,7 +113,8 @@ namespace SecondHandMarket.Controllers
                             Directory.CreateDirectory(path);
                         }
 
-                        string fileName = Convert.ToString(Guid.NewGuid());
+                        //string fileName = Convert.ToString(Guid.NewGuid());
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                         using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                         {
                             file.CopyTo(stream);
