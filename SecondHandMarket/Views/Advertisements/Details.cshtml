@@ -12,7 +12,7 @@
             {
                 @foreach (var picture in Model.Pictures)
                 {
-
+                    
             <div class="carousel-item active">
                 <img class="d-block w-100" src="@Url.Content(picture.Path)" alt="">
             </div>
@@ -28,57 +28,58 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    <div style="padding:15px">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
 
-    <h2>@Html.DisplayFor(model => model.Title)</h2>
 
+        <dl class="row">
+            @*Todo: ha div:ar istället för tabell (responsiv)*@
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PublishDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PublishDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Location.Id)
+            </dd>
 
-    <dl class="row">
-        @*Todo: ha div:ar istället för tabell (responsiv)*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PublishDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PublishDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Location.Id)
-        </dd>
-
-        @* TODO: fixa bootstrap collapse bar. När klickar Kontakta (displayname) knapp: ser mejl och tel nr*@
-        <dt class="col-sm-2">
-            Kontakt
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUser.DisplayName)
-        </dd>
-    </dl>
+            @* TODO: fixa bootstrap collapse bar. När klickar Kontakta (displayname) knapp: ser mejl och tel nr*@
+            <dt class="col-sm-2">
+                Kontakt
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.DisplayName)
+            </dd>
+        </dl>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

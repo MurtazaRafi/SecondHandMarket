@@ -121,6 +121,7 @@ namespace SecondHandMarket.Data
 
             modelBuilder.Entity<SubLocation>()
              .HasData(
+                //TODO antingen ha färre locations eller ha åtminstonde 1 sublocation för varje location
                 new SubLocation { Id = 1, Name = "Botkyrka", LocationId = 12 },
                 new SubLocation { Id = 2, Name = "Solna", LocationId = 12 },
                 new SubLocation { Id = 3, Name = "Huddinge", LocationId = 12 },

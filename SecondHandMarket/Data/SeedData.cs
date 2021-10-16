@@ -36,7 +36,7 @@ namespace SecondHandMarket.Data
                     if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
                 }
 
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     string firstName = fake.Name.FirstName();
                     string lastName = fake.Name.LastName();
@@ -62,8 +62,9 @@ namespace SecondHandMarket.Data
 
                 var users = context.Users.Take(50).ToArray();
 
+                //TODO fixa 10-15 annonser med realistisk data
                 var advertisements = new List<Advertisement>();
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     var advertisement = new Advertisement
                     {
@@ -76,7 +77,7 @@ namespace SecondHandMarket.Data
                         Price = fake.Random.Int(1000, 25000),
                         PublishDate = DateTime.Now.AddDays(fake.Random.Int(-100, 0)),
                         Pictures = new List<Picture>() {
-                            new Picture { Path = "C:/Users/Latitude/source/repos/SecondHandMarket/SecondHandMarket/wwwroot/Pics/Laptop.jpg" } },
+                            new Picture { Path = "/Pics/Laptop.jpg" } },
                         ApplicationUserId = users[i].Id
                     };
                     advertisements.Add(advertisement);
@@ -93,7 +94,7 @@ namespace SecondHandMarket.Data
                         Price = fake.Random.Int(1000, 25000),
                         PublishDate = DateTime.Now.AddDays(fake.Random.Int(-100, 0)),
                         Pictures = new List<Picture>() {
-                            new Picture { Path = "C:/Users/Latitude/source/repos/SecondHandMarket/SecondHandMarket/wwwroot/Pics/Laptop.jpg" } },
+                            new Picture { Path = "Pics/Laptop.jpg" } },
                         ApplicationUserId = users[i].Id
                     };
                     advertisements.Add(advertisement);
