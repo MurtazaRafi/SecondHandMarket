@@ -94,7 +94,7 @@ namespace SecondHandMarket.Data
                         Price = fake.Random.Int(1000, 25000),
                         PublishDate = DateTime.Now.AddDays(fake.Random.Int(-100, 0)),
                         Pictures = new List<Picture>() {
-                            new Picture { Path = "Pics/Laptop.jpg" } },
+                            new Picture { Path = "/Pics/Laptop.jpg" } },
                         ApplicationUserId = users[i].Id
                     };
                     advertisements.Add(advertisement);
