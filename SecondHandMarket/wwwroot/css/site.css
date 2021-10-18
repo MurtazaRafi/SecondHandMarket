@@ -135,13 +135,32 @@ input {
         visibility: hidden;
     }
 
+/* end create*/
+.box-shadow {
+    box-shadow: none;
+}
 
-
-
+/*Details*/
 
 .carousel img {
+    height: 400px;
+    object-fit: contain;
+    background-color: whitesmoke;
+}
 
-        height: 400px;
-        width: 400px;
+
+/*@media (max-width: 768px) {
+    .carousel img {
+        height: 345px;
         object-fit: contain;
+        background-color: whitesmoke;
+    }
+}*/
+
+@media (max-width: 576px) {
+    .carousel img {
+        height: 285px;
+        object-fit: contain;
+        background-color: whitesmoke;
+    }
 }
