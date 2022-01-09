@@ -25,6 +25,7 @@ body {
 .myContainer {
     background-color: #ffffff;
     padding: 0px;
+    width:70%;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

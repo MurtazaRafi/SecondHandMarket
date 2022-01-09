@@ -6,7 +6,8 @@
 
 
 <div>
-    <p>@*Alla > @Model.Category.ma*@</p>
+    @*TODO gör en service som visar main cat och cat*@
+    <p>Alla > @Model.Category.Name </p>
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             @if (Model.Pictures != null)
@@ -17,16 +18,15 @@
                     if (count == 0)
                     {
                         <div class="carousel-item active">
-                                <img class="d-block w-100 data-enlargeable" style="cursor: zoom-in"  src="@Url.Content(picture.Path)" alt="">
-                            </div>
+                            <img class="d-block w-100 data-enlargeable" style="cursor: zoom-in" src="@Url.Content(picture.Path)" alt="">
+                        </div>
 
                     }
                     else
                     {
                         <div class="carousel-item">
-
-                                <img class="d-block w-100 data-enlargeable" style="cursor: zoom-in" src="@Url.Content(picture.Path)" alt="">
-                            </div>
+                            <img class="d-block w-100 data-enlargeable" style="cursor: zoom-in" src="@Url.Content(picture.Path)" alt="">
+                        </div>
                     }
                     count++;
                 }
@@ -41,10 +41,13 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <div style="padding:15px">
-        <h2>@Html.DisplayFor(model => model.Title)</h2>
+    <div style="padding:15px;">
+        <p>Inlagd: @Model.PublishDate</p>
+        <h2>Säljes av: @Model.ApplicationUser.DisplayName</h2>
+        <h1>@Html.DisplayFor(model => model.Title)</h1>
+        <h2>@Model.Price kr</h2>
 
-
+        <h5>@Model.Description</h5>
         <dl class="row">
             @*Todo: ha div:ar istället för tabell (responsiv)*@
             <dt class="col-sm-2">
