@@ -1,4 +1,4 @@
-Secondhand Market
+# Secondhand Market
 Experimented with building a Web Application similar to Swedish second hand market Blocket.
 ## Pages
 
