@@ -1,6 +1,7 @@
 # Secondhand Market
 Experimented with building a Web Application similar to Swedish secondhand market Blocket, with ASP.NET Core MVC framework.
 ## Pages
+Usual CRUD functionality for different 'advertisements'.
 
 ## One interesting problem I solved in this project 
 Something difficult and interesting I solved in this project was with the flexible picture upload problem, when putting a new advertisment.
