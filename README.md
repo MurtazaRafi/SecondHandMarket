@@ -1,5 +1,5 @@
 # Secondhand Market
-Experimented with building a Web Application similar to Swedish second hand market Blocket.
+Experimented with building a Web Application similar to Swedish secondhand market Blocket, with ASP.NET Core MVC framework.
 ## Pages
 
 ## One interesting problem I solved in this project 
