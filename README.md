@@ -11,8 +11,6 @@ Here the importance of using the right data type was extra important and somethi
 #### Demonstrating the problem
 When wanting to put an advertisement (by first clicking 'create' button) one encounters the problem while putting several pictures like below:
 
-<img width="413" height="314" alt="image" src="https://github.com/user-attachments/assets/34535c1d-0fad-4964-8265-92a74a985fff" />#
-
 <img width="713" height="578" alt="image" src="https://github.com/user-attachments/assets/70670d33-efa6-4e42-8666-1477185e0249" />
 
 And adding two pictures:
