@@ -24,8 +24,10 @@ body {
 
 .myContainer {
     background-color: #ffffff;
-    padding: 0px;
-    width:70%;
+    padding: 2rem 2.5rem;
+    max-width: 960px;   /* instead of width: 70% */
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -164,4 +166,12 @@ input {
         object-fit: contain;
         background-color: whitesmoke;
     }
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group .form-control {
+    padding: 0.5rem 0.75rem;
 }
