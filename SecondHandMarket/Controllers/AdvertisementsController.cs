@@ -49,7 +49,7 @@ namespace SecondHandMarket.Controllers
             }
 
             var advertisement = await db.Advertisements
-                .Include(a=>a.Pictures)
+                .Include(a => a.Pictures)
                 .Include(a => a.ApplicationUser)
                 .Include(a => a.Category)
                 .Include(a => a.Location)
